@@ -53,6 +53,8 @@ const getRandomName = async() =>{
 }
 
 
+let deleteIcon;
+
 const saveNotification = () =>{
     // When the user saves a name it will append it the notification to nameWrapper
     nameWrapper.append(notification)
@@ -61,11 +63,23 @@ const saveNotification = () =>{
     // This makes the saveBabyNameSymbol background color solid and then makes it transparent after .5s
     saveBabyNameSymbol.classList.add("fa-solid")
     setTimeout(()=>saveBabyNameSymbol.classList.remove("fa-solid"), 500)
+    deleteIcon = document.createElement("i")
+    deleteIcon.classList.add("fas")
+    deleteIcon.classList.add("fa-minus-circle")
+    deleteIcon.classList.add("deleteIcon")
 
     // This creates an element with the value of the nameResponse variable and then appends to the DOM
     let savedBabyName = document.createElement("h3")
     savedBabyName.innerHTML = nameResponse
+    savedBabyName.append(deleteIcon)
     arrayNames.append(savedBabyName)
+
+    // This will delete the name from the favorite names div
+    deleteIcon.addEventListener("click",deleteName)
+}
+const deleteName = (e) =>{
+    e.target.parentNode.parentNode.removeChild(e.target.parentNode)
+
 }
 
 // Every time the fetchButton is clicked it will run the getRandomName function
